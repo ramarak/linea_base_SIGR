@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Nueva reserva{% endblock %}
+{% block content %}
+<h1>Reserva por fecha y hora</h1>
+<form method="post" class="formulario">
+    {{ form.hidden_tag() }}
+    <label>{{ form.nombre.label }} {{ form.nombre(class="campo") }}</label>
+    <label>{{ form.contacto.label }} {{ form.contacto(class="campo") }}</label>
+    <label>{{ form.fecha.label }} {{ form.fecha(class="campo") }}</label>
+    <label>{{ form.hora.label }} {{ form.hora(class="campo") }}</label>
+    <label>{{ form.personas.label }} {{ form.personas(class="campo") }}</label>
+    <label>{{ form.observaciones.label }} {{ form.observaciones(class="campo") }}</label>
+    <button type="submit" class="boton">Reservar</button>
+</form>
+{% endblock %}

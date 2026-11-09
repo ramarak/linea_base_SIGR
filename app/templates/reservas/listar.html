@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Reservas{% endblock %}
+{% block content %}
+<h1>Reservas</h1>
+<p><a class="boton" href="{{ url_for('reservas.nueva') }}">Nueva reserva</a></p>
+<table>
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Personas</th>
+            <th>Estado</th>
+            {% if current_user.es_personal() %}<th>Gestión</th>{% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for r in reservas %}
+        <tr>
+            <td>{{ r.nombre }}<br><small>{{ r.contacto }}</small></td>
+            <td>{{ r.fecha }}</td>
+            <td>{{ r.hora.strftime("%H:%M") }}</td>
+            <td>{{ r.personas }}</td>
+            <td>{{ r.estado }}</td>
+            {% if current_user.es_personal() %}
+            <td>
+                <form method="post" action="{{ url_for('reservas.cambiar_estado', reserva_id=r.id) }}" class="inline">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <select name="estado">
+                        {% for e in estados %}
+                            <option value="{{ e }}" {% if e == r.estado %}selected{% endif %}>{{ e }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" class="boton boton-chico">Actualizar</button>
+                </form>
+            </td>
+            {% endif %}
+        </tr>
+        {% else %}
+        <tr><td colspan="6">No hay reservas.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

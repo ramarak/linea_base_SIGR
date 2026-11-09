@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Caja{% endblock %}
+{% block content %}
+<h1>Cierre de caja y ventas diarias</h1>
+<form method="get" class="formulario formulario-inline">
+    <label>Fecha <input class="campo" type="date" name="fecha" value="{{ dia.isoformat() }}"></label>
+    <button type="submit" class="boton">Consultar</button>
+</form>
+<div class="tarjetas">
+    <article class="tarjeta"><h2>${{ "%.0f"|format(total) }}</h2><p>Ventas facturadas</p></article>
+    <article class="tarjeta"><h2>{{ pedidos_entregados }}</h2><p>Pedidos entregados</p></article>
+    <article class="tarjeta"><h2>{{ facturas|length }}</h2><p>Facturas del día</p></article>
+</div>
+<h2>Facturas</h2>
+<table>
+    <thead><tr><th>Número</th><th>Pedido</th><th>Total</th><th>Fecha</th></tr></thead>
+    <tbody>
+        {% for f in facturas %}
+        <tr>
+            <td>{{ f.numero }}</td>
+            <td>#{{ f.pedido_id }}</td>
+            <td>${{ "%.0f"|format(f.total) }}</td>
+            <td>{{ f.fecha.strftime("%Y-%m-%d %H:%M") }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="4">Sin facturas en esta fecha. Entregue un pedido para generar factura.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+<h2>Registrar cierre de hoy</h2>
+<form method="post" action="{{ url_for('caja.cerrar') }}" class="formulario">
+    {{ form.hidden_tag() }}
+    <label>{{ form.observaciones.label }} {{ form.observaciones(class="campo") }}</label>
+    <button type="submit" class="boton">Cerrar caja</button>
+</form>
+{% if cierres %}
+<h2>Cierres del día</h2>
+<table>
+    <thead><tr><th>Hora</th><th>Usuario</th><th>Ventas</th><th>Pedidos</th><th>Obs.</th></tr></thead>
+    <tbody>
+        {% for c in cierres %}
+        <tr>
+            <td>{{ c.creado_en.strftime("%H:%M") }}</td>
+            <td>{{ c.usuario.nombre }}</td>
+            <td>${{ "%.0f"|format(c.total_ventas) }}</td>
+            <td>{{ c.total_pedidos }}</td>
+            <td>{{ c.observaciones }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% endblock %}
