@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Iniciar sesión{% endblock %}
+{% block content %}
+<h1>Iniciar sesión</h1>
+<form method="post" class="formulario">
+    {{ form.hidden_tag() }}
+    <label>{{ form.email.label }} {{ form.email(class="campo") }}</label>
+    <label>{{ form.password.label }} {{ form.password(class="campo") }}</label>
+    <button type="submit" class="boton">Entrar</button>
+</form>
+<p>¿No tiene cuenta? <a href="{{ url_for('auth.registro') }}">Regístrese como cliente</a>.</p>
+<p class="ayuda">Usuarios de demostración: admin@sigr.local / admin123 · mesero@sigr.local / mesero123 · cliente@sigr.local / cliente123</p>
+{% endblock %}

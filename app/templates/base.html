@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}SIGR{% endblock %} · Sistema Integral de Gestión de Restaurante</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+</head>
+<body>
+    <header class="barra">
+        <a class="marca" href="{{ url_for('main.index') }}">SIGR</a>
+        <nav>
+            <a href="{{ url_for('menu.listar') }}">Menú</a>
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('main.dashboard') }}">Panel</a>
+                <a href="{{ url_for('pedidos.listar') }}">Pedidos</a>
+                <a href="{{ url_for('reservas.listar') }}">Reservas</a>
+                {% if current_user.es_admin() %}
+                    <a href="{{ url_for('menu.admin') }}">Admin menú</a>
+                    <a href="{{ url_for('caja.reporte') }}">Caja</a>
+                {% endif %}
+                <span class="usuario">{{ current_user.nombre }} ({{ current_user.rol }})</span>
+                <a href="{{ url_for('auth.logout') }}">Salir</a>
+            {% else %}
+                <a href="{{ url_for('auth.login') }}">Ingresar</a>
+                <a href="{{ url_for('auth.registro') }}">Registrarse</a>
+            {% endif %}
+        </nav>
+    </header>
+    <main class="contenedor">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="alertas">
+                    {% for categoria, mensaje in messages %}
+                        <li class="alerta alerta-{{ categoria }}">{{ mensaje }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="pie">
+        Línea base SIGR · Gestión del Software · Unidad 2 · AA2
+    </footer>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

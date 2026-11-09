@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Panel{% endblock %}
+{% block content %}
+<h1>Panel de control</h1>
+<p>Sesión de <strong>{{ current_user.nombre }}</strong> con rol <strong>{{ current_user.rol }}</strong>.</p>
+{% if resumen %}
+<div class="tarjetas">
+    <article class="tarjeta"><h2>{{ resumen.platos }}</h2><p>Platos en carta</p></article>
+    <article class="tarjeta"><h2>{{ resumen.pedidos_abiertos }}</h2><p>Pedidos en curso</p></article>
+    <article class="tarjeta"><h2>{{ resumen.reservas_hoy }}</h2><p>Reservas registradas</p></article>
+    <article class="tarjeta"><h2>{{ resumen.cierres }}</h2><p>Cierres de caja</p></article>
+</div>
+{% endif %}
+<div class="acciones">
+    <a class="boton" href="{{ url_for('pedidos.nuevo') }}">Nuevo pedido</a>
+    <a class="boton boton-secundario" href="{{ url_for('reservas.nueva') }}">Nueva reserva</a>
+</div>
+{% endblock %}
