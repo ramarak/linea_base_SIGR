@@ -12,34 +12,30 @@ La rama principal del proyecto es **`main`**. Toda la línea base académica viv
 4. Registrar commits por tema (estructura, modelo de datos, autenticación, menú y pedidos, reservas y caja, pruebas y documentación).
 5. Tomar el hash del **último commit de la línea base** para el informe.
 
-## Hash de ejemplo del repositorio del equipo
+## Repositorio GitHub del equipo
 
-En el enunciado de la actividad aparece el commit `a93b4f1` asociado al repositorio GitHub del equipo (`https://github.com/equipoX/sigr`).
+El código se publica en [https://github.com/ramarak/linea_base_SIGR](https://github.com/ramarak/linea_base_SIGR.git).
 
-Ese hash **no se puede reproducir** en este repositorio local: Git calcula el identificador a partir del contenido, el mensaje, el autor y la fecha. Al redactar `Taller_LineaBase_SIGR.pdf`, el estudiante debe sustituir `a93b4f1` por el hash real que obtenga con:
+En el enunciado de la actividad aparece el commit `a93b4f1` como ejemplo. Ese hash **no se puede reproducir**: Git lo calcula a partir del contenido, el mensaje, el autor y la fecha. En el informe `Taller_LineaBase_SIGR.pdf` hay que citar el hash real de `main`:
 
 ```bash
 git log -1 --oneline
-```
-
-o, si el equipo ya publicó el código:
-
-```bash
 git log origin/main -1 --oneline
 ```
 
-## Commits representativos de esta línea base local
+## Commits representativos de esta línea base
 
-Historial de `main` generado en el repositorio local (hashes cortos; use `git log --oneline` si el clon del equipo difiere):
+Historial temático de `main` (autor: Ramarak). Los hashes cortos corresponden al historial reescrito antes del commit que actualiza esta nota; el valor a citar en el informe es siempre `git rev-parse --short HEAD`.
 
-1. `5cca813` — Commit inicial: estructura del proyecto, licencia MIT e instrucciones de instalacion.
-2. `099d1b9` — Modelos de datos y migracion Alembic inicial del esquema SIGR.
-3. `980dc41` — Autenticacion por roles y panel de control.
-4. `5cc6b67` — Menu digital con CRUD y seguimiento de pedidos.
-5. `35ac42a` — Reservas por fecha y hora, facturacion y cierre de caja.
-6. `d2ac12b` — Pruebas de integracion, documentacion tecnica y criterio de linea base 1.0.0.
+1. `86cc6ff` — Commit inicial: estructura del proyecto, licencia MIT e instrucciones de instalacion.
+2. `b8252bf` — Modelos de datos y migracion Alembic inicial del esquema SIGR.
+3. `a8940d6` — Autenticacion por roles y panel de control.
+4. `9022da6` — Menu digital con CRUD y seguimiento de pedidos.
+5. `41d2eb7` — Reservas por fecha y hora, facturacion y cierre de caja.
+6. `f31f0bc` — Pruebas de integracion, documentacion tecnica y criterio de linea base 1.0.0.
+7. `02dfbea` — Documenta los hashes locales de la rama main para el informe.
 
-**Hash de línea base local de referencia:** `d2ac12b`. Si el equipo añade un commit posterior (por ejemplo, para anotar estos hashes), el valor a citar en el informe es el de `git rev-parse --short HEAD`.
+**Hash de referencia previo a esta actualización de URLs:** `02dfbea`.
 
 ## Criterio de línea base
 

@@ -15,8 +15,8 @@ No se necesita un servidor de base de datos externo: se usa SQLite.
 ## Clonar e instalar
 
 ```bash
-git clone <url-del-repositorio>
-cd aa2
+git clone https://github.com/ramarak/linea_base_SIGR.git
+cd linea_base_SIGR
 python -m venv .venv
 ```
 
