@@ -1,0 +1,7 @@
+Migraciones Alembic de SIGR.
+
+El docente y el equipo deben aplicar el esquema con:
+
+    flask --app run.py db upgrade
+
+No se deben borrar las revisiones de `versions/`.
