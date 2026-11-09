@@ -30,14 +30,16 @@ git log origin/main -1 --oneline
 
 ## Commits representativos de esta línea base local
 
-El listado definitivo se completa después de inicializar Git. Consulte `git log --oneline` en `main`. Como guía:
+Historial de `main` generado en el repositorio local (hashes cortos; use `git log --oneline` si el clon del equipo difiere):
 
-1. Estructura inicial, licencia e instrucciones.
-2. Modelos y migración de esquema.
-3. Autenticación y panel.
-4. Menú digital y pedidos.
-5. Reservas y caja.
-6. Pruebas, documentación y etiqueta de línea base 1.0.0.
+1. `5cca813` — Commit inicial: estructura del proyecto, licencia MIT e instrucciones de instalacion.
+2. `099d1b9` — Modelos de datos y migracion Alembic inicial del esquema SIGR.
+3. `980dc41` — Autenticacion por roles y panel de control.
+4. `5cc6b67` — Menu digital con CRUD y seguimiento de pedidos.
+5. `35ac42a` — Reservas por fecha y hora, facturacion y cierre de caja.
+6. `d2ac12b` — Pruebas de integracion, documentacion tecnica y criterio de linea base 1.0.0.
+
+**Hash de línea base local de referencia:** `d2ac12b`. Si el equipo añade un commit posterior (por ejemplo, para anotar estos hashes), el valor a citar en el informe es el de `git rev-parse --short HEAD`.
 
 ## Criterio de línea base
 
