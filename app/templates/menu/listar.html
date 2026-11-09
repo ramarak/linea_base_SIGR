@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Menú digital{% endblock %}
+{% block content %}
+<h1>Menú digital</h1>
+{% for categoria in categorias %}
+    <section class="bloque">
+        <h2>{{ categoria.nombre }}</h2>
+        <p class="muted">{{ categoria.descripcion }}</p>
+        <table>
+            <thead>
+                <tr><th>Plato</th><th>Descripción</th><th>Precio</th></tr>
+            </thead>
+            <tbody>
+                {% for plato in categoria.platos %}
+                    {% if plato.disponible %}
+                    <tr>
+                        <td>{{ plato.nombre }}</td>
+                        <td>{{ plato.descripcion }}</td>
+                        <td>${{ "%.0f"|format(plato.precio) }}</td>
+                    </tr>
+                    {% endif %}
+                {% else %}
+                    <tr><td colspan="3">Sin platos en esta categoría.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+{% else %}
+    <p>Aún no hay categorías. El administrador debe crear el menú o ejecutar <code>flask seed</code>.</p>
+{% endfor %}
+{% endblock %}

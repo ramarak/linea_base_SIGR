@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Nuevo pedido{% endblock %}
+{% block content %}
+<h1>Nuevo pedido</h1>
+<form method="post" class="formulario">
+    {{ form.hidden_tag() }}
+    <label>{{ form.mesa.label }} {{ form.mesa(class="campo", placeholder="Mesa 4") }}</label>
+    <label>{{ form.notas.label }} {{ form.notas(class="campo") }}</label>
+    <h2>Platos</h2>
+    <table>
+        <thead><tr><th>Plato</th><th>Precio</th><th>Cantidad</th></tr></thead>
+        <tbody>
+            {% for plato in platos %}
+            <tr>
+                <td>{{ plato.nombre }}</td>
+                <td>${{ "%.0f"|format(plato.precio) }}</td>
+                <td><input type="number" name="cantidad_{{ plato.id }}" min="0" value="0" class="campo campo-corto"></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <button type="submit" class="boton">Enviar pedido</button>
+</form>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}{{ titulo }}{% endblock %}
+{% block content %}
+<h1>{{ titulo }}</h1>
+<form method="post" class="formulario">
+    {{ form.hidden_tag() }}
+    <label>{{ form.nombre.label }} {{ form.nombre(class="campo") }}</label>
+    <label>{{ form.descripcion.label }} {{ form.descripcion(class="campo") }}</label>
+    <label class="check">{{ form.activa() }} {{ form.activa.label }}</label>
+    <button type="submit" class="boton">Guardar</button>
+</form>
+{% endblock %}

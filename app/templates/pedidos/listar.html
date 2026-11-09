@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Pedidos{% endblock %}
+{% block content %}
+<h1>Pedidos</h1>
+<p><a class="boton" href="{{ url_for('pedidos.nuevo') }}">Registrar pedido</a></p>
+<table id="tabla-pedidos">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Mesa</th>
+            <th>Estado</th>
+            <th>Total</th>
+            <th>Hora</th>
+            {% if current_user.es_personal() %}<th>Seguimiento</th>{% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in pedidos %}
+        <tr data-pedido-id="{{ p.id }}">
+            <td>{{ p.id }}</td>
+            <td>{{ p.mesa or "—" }}</td>
+            <td class="estado">{{ p.estado.replace("_", " ") }}</td>
+            <td>${{ "%.0f"|format(p.total) }}</td>
+            <td>{{ p.creado_en.strftime("%H:%M") }}</td>
+            {% if current_user.es_personal() %}
+            <td>
+                <form method="post" action="{{ url_for('pedidos.cambiar_estado', pedido_id=p.id) }}" class="inline">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <select name="estado">
+                        {% for e in estados %}
+                            <option value="{{ e }}" {% if e == p.estado %}selected{% endif %}>{{ e.replace("_", " ") }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" class="boton boton-chico">Actualizar</button>
+                </form>
+            </td>
+            {% endif %}
+        </tr>
+        {% else %}
+        <tr><td colspan="6">No hay pedidos.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/pedidos.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Administrar menú{% endblock %}
+{% block content %}
+<h1>Administración del menú</h1>
+<p>
+    <a class="boton" href="{{ url_for('menu.plato_nuevo') }}">Nuevo plato</a>
+    <a class="boton boton-secundario" href="{{ url_for('menu.categoria_nueva') }}">Nueva categoría</a>
+</p>
+<h2>Categorías</h2>
+<table>
+    <thead><tr><th>Nombre</th><th>Estado</th><th></th></tr></thead>
+    <tbody>
+        {% for c in categorias %}
+        <tr>
+            <td>{{ c.nombre }}</td>
+            <td>{{ "Activa" if c.activa else "Inactiva" }}</td>
+            <td>
+                <a href="{{ url_for('menu.categoria_editar', categoria_id=c.id) }}">Editar</a>
+                <form class="inline" method="post" action="{{ url_for('menu.categoria_eliminar', categoria_id=c.id) }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button type="submit" class="enlace-peligro">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<h2>Platos</h2>
+<table>
+    <thead><tr><th>Nombre</th><th>Categoría</th><th>Precio</th><th>Disponible</th><th></th></tr></thead>
+    <tbody>
+        {% for p in platos %}
+        <tr>
+            <td>{{ p.nombre }}</td>
+            <td>{{ p.categoria.nombre }}</td>
+            <td>${{ "%.0f"|format(p.precio) }}</td>
+            <td>{{ "Sí" if p.disponible else "No" }}</td>
+            <td>
+                <a href="{{ url_for('menu.plato_editar', plato_id=p.id) }}">Editar</a>
+                <form class="inline" method="post" action="{{ url_for('menu.plato_eliminar', plato_id=p.id) }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button type="submit" class="enlace-peligro">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
